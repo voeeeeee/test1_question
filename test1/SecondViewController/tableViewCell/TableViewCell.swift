@@ -9,6 +9,8 @@ import UIKit
 
 class TableViewCell: UITableViewCell {
 
+    private var didTapHandler: () -> Void = {}
+
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -18,10 +20,13 @@ class TableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
+    func configure(didTap: @escaping () -> Void) {
+        didTapHandler = didTap
+    }
+
     @IBAction func didTap(_ sender: Any) {
         print("タップされたよ")
-        let thirdVC = ThirdViewController()
-        thirdVC.navigationController?.pushViewController(thirdVC, animated: true)
+        didTapHandler()
     }
 
 }
